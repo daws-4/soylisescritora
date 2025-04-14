@@ -12,33 +12,33 @@ export default function AboutPage() {
           <div className="text-center z-10 space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold text-white">Sobre Lis Samarah</h1>
             <p className="text-xl text-rose-100 max-w-2xl mx-auto">
-              Conoce más sobre la escritora y crítica literaria detrás de "Sentimientos Sangrientos"
+              Conoce más sobre la escritora y crítica literaria detrás de <span className="font-bold uppercase">Sentimientos Sangrientos</span>
             </p>
           </div>
         </div>
       </section>
 
       {/* Biography Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gradient-to-b from-gray-100 to-rose-100">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[500px] w-full">
               <Image
-                src="/placeholder.svg?height=500&width=400"
+                src="https://random-image-pepebigotes.vercel.app/api/random-image"
                 alt="Lis Samarah"
                 fill
                 className="object-cover rounded-lg shadow-lg"
               />
             </div>
-            <div className="space-y-6">
+            <div className="space-y-6 [&>p]:text-rose-700 [&>p]:text-balance">
               <h2 className="text-3xl font-bold text-rose-900">Biografía</h2>
               <p className="text-lg">
-                Lis Samarah nació en el corazón de España, donde desde temprana edad mostró una fascinación por las
+                <strong>Lis Samarah</strong> nació en el corazón de España, donde desde temprana edad mostró una fascinación por las
                 palabras y las historias. Creció rodeada de libros, desarrollando una sensibilidad especial para captar
                 la belleza y la complejidad de la condición humana.
               </p>
               <p className="text-lg">
-                Estudió Literatura en la Universidad de Madrid, donde descubrió su pasión por la crítica literaria y
+                Estudió Literatura en la <strong>Universidad de Madrid</strong>, donde descubrió su pasión por la crítica literaria y
                 comenzó a forjar su propio estilo como escritora. Sus primeros relatos cortos llamaron la atención por
                 su intensidad emocional y su prosa poética.
               </p>
@@ -58,7 +58,7 @@ export default function AboutPage() {
       </section>
 
       {/* Writing Journey */}
-      <section className="py-16 bg-rose-50">
+      <section className="py-16 bg-gradient-to-b from-rose-100 to-gray-100">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-rose-900">Trayectoria Literaria</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -86,8 +86,8 @@ export default function AboutPage() {
                 <div className="w-12 h-12 bg-rose-700 text-white rounded-full flex items-center justify-center mb-6 text-xl font-bold">
                   {item.number}
                 </div>
-                <h3 className="text-xl font-bold mb-4">{item.title}</h3>
-                <p>{item.description}</p>
+                <h3 className="text-xl font-bold mb-4 text-rose-800">{item.title}</h3>
+                <p className="text-rose-500 text-balance">{item.description}</p>
               </div>
             ))}
           </div>
@@ -95,17 +95,17 @@ export default function AboutPage() {
       </section>
 
       {/* Philosophy Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 order-2 md:order-1">
+            <div className="space-y-6 order-2 md:order-1 [&>p]:text-rose-700 [&>p]:text-balance">
               <h2 className="text-3xl font-bold text-rose-900">Filosofía Literaria</h2>
               <p className="text-lg">
-                Para Lis Samarah, la literatura es mucho más que entretenimiento; es un vehículo para explorar la
+                Para Lis Samarah, <strong>la literatura es mucho más que entretenimiento</strong>; es un vehículo para explorar la
                 complejidad del alma humana y un puente que conecta experiencias y emociones universales.
               </p>
               <p className="text-lg">
-                "Escribir es un acto de valentía", afirma Lis. "Requiere la disposición de sumergirse en las
+                <i>"Escribir es un acto de valentía"</i>, afirma Lis. "Requiere la disposición de sumergirse en las
                 profundidades de uno mismo y extraer verdades que a veces pueden ser incómodas pero necesarias."
               </p>
               <p className="text-lg">
@@ -119,7 +119,7 @@ export default function AboutPage() {
             </div>
             <div className="relative h-[400px] w-full order-1 md:order-2">
               <Image
-                src="/placeholder.svg?height=400&width=600"
+                src="https://random-image-pepebigotes.vercel.app/api/random-image"
                 alt="Lis Samarah escribiendo"
                 fill
                 className="object-cover rounded-lg shadow-lg"
@@ -144,7 +144,7 @@ export default function AboutPage() {
             <Button
               as={Link}
               href="/reviews"
-              variant="outline"
+              variant="ghost"
               size="lg"
               className="border-white text-white hover:bg-white/10"
             >
