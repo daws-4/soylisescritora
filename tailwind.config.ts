@@ -99,9 +99,12 @@ const config: Config = {
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        "accordion-down": "accordion-down 350ms ease-out",
+        "accordion-up": "accordion-up 350ms ease-out",
       },
+      fontFamily: {
+        roman: ["Times New Roman", "serif"],
+      }
     },
   },
   plugins: [],

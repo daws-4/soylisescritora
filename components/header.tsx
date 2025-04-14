@@ -23,7 +23,7 @@ export default function Header() {
   ]
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white border-b border-rose-400 sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
@@ -51,7 +51,7 @@ export default function Header() {
               <BookOpen className="h-4 w-4" />
               <span>Reseñas</span>
             </Button>
-            <Button as={Link} href="/store" variant="primary" size="sm" className="bg-rose-700 hover:bg-rose-800 gap-2">
+            <Button as={Link} href="/store" variant="flat" size="sm" className="bg-rose-700 hover:bg-rose-800 gap-2">
               <ShoppingBag className="h-4 w-4" />
               <span>Tienda</span>
             </Button>
@@ -88,9 +88,9 @@ export default function Header() {
               <Button
                 as={Link}
                 href="/reviews"
-                variant="outline"
+                variant="ghost"
                 className="w-full justify-start gap-2"
-                onClick={() => setIsMenuOpen(false)}
+                onPress={() => setIsMenuOpen(false)}
               >
                 <BookOpen className="h-4 w-4" />
                 <span>Reseñas</span>
@@ -98,9 +98,9 @@ export default function Header() {
               <Button
                 as={Link}
                 href="/store"
-                variant="primary"
+                variant="flat"
                 className="w-full justify-start bg-rose-700 hover:bg-rose-800 gap-2"
-                onClick={() => setIsMenuOpen(false)}
+                onPress={() => setIsMenuOpen(false)}
               >
                 <ShoppingBag className="h-4 w-4" />
                 <span>Tienda</span>
