@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+/* HeroUI custom theme */
+:root {
+  --heroui-primary: 190, 24, 93;
+  --heroui-primary-foreground: 255, 255, 255;
+  --heroui-secondary: 226, 232, 240;
+  --heroui-secondary-foreground: 15, 23, 42;
+  --heroui-accent: 249, 250, 251;
+  --heroui-accent-foreground: 15, 23, 42;
+  --heroui-destructive: 239, 68, 68;
+  --heroui-destructive-foreground: 255, 255, 255;
+  --heroui-muted: 241, 245, 249;
+  --heroui-muted-foreground: 100, 116, 139;
+  --heroui-card: 255, 255, 255;
+  --heroui-card-foreground: 15, 23, 42;
+  --heroui-border: 226, 232, 240;
+  --heroui-input: 226, 232, 240;
+  --heroui-ring: 190, 24, 93;
+}
