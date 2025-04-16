@@ -64,28 +64,28 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Info */}
-      <section className="py-12 bg-white">
+      <section className="py-12 bg-gradient-to-b from-gray-100 to-rose-200">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="bg-rose-50 p-6 rounded-lg text-center">
+            <div className="bg-rose-100 p-6 rounded-lg text-center">
               <div className="bg-rose-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="h-6 w-6 text-rose-700" />
               </div>
-              <h3 className="font-bold mb-2">Email</h3>
+              <h3 className="font-bold mb-2 text-rose-700">Email</h3>
               <p className="text-gray-700">contacto@lissamarah.com</p>
             </div>
-            <div className="bg-rose-50 p-6 rounded-lg text-center">
+            <div className="bg-rose-100 p-6 rounded-lg text-center">
               <div className="bg-rose-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Phone className="h-6 w-6 text-rose-700" />
               </div>
-              <h3 className="font-bold mb-2">Teléfono</h3>
+              <h3 className="font-bold mb-2 text-rose-700">Teléfono</h3>
               <p className="text-gray-700">+34 612 345 678</p>
             </div>
-            <div className="bg-rose-50 p-6 rounded-lg text-center">
+            <div className="bg-rose-100 p-6 rounded-lg text-center">
               <div className="bg-rose-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                 <MapPin className="h-6 w-6 text-rose-700" />
               </div>
-              <h3 className="font-bold mb-2">Ubicación</h3>
+              <h3 className="font-bold mb-2 text-rose-700">Ubicación</h3>
               <p className="text-gray-700">Madrid, España</p>
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gradient-to-b from-rose-200 to-gray-100">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12 text-rose-900">Envíanos un mensaje</h2>
@@ -185,9 +185,8 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`px-6 py-3 bg-rose-700 text-white rounded-md hover:bg-rose-800 transition-colors flex items-center gap-2 mx-auto ${
-                    isSubmitting ? "opacity-70 cursor-not-allowed" : ""
-                  }`}
+                  className={`px-6 py-3 bg-rose-700 text-white rounded-md hover:bg-rose-800 transition-colors flex items-center gap-2 mx-auto ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+                    }`}
                 >
                   {isSubmitting ? (
                     <>
@@ -227,35 +226,35 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-rose-900">Preguntas frecuentes</h2>
           <div className="max-w-3xl mx-auto space-y-6">
-            <div className="bg-rose-50 p-6 rounded-lg">
-              <h3 className="font-bold text-lg mb-2">¿Cómo puedo conseguir un libro firmado?</h3>
+            <div className="bg-rose-100 p-6 rounded-lg">
+              <h3 className="font-bold text-lg mb-2 text-rose-600">¿Cómo puedo conseguir un libro firmado?</h3>
               <p className="text-gray-700">
                 Lis Samarah realiza regularmente eventos de firma de libros. Puedes consultar la sección de eventos para
                 conocer las próximas fechas. También es posible solicitar un ejemplar firmado a través de la tienda
                 online.
               </p>
             </div>
-            <div className="bg-rose-50 p-6 rounded-lg">
-              <h3 className="font-bold text-lg mb-2">¿Realiza Lis Samarah envíos internacionales?</h3>
+            <div className="bg-rose-100 p-6 rounded-lg">
+              <h3 className="font-bold text-lg mb-2 text-rose-600">¿Realiza Lis Samarah envíos internacionales?</h3>
               <p className="text-gray-700">
                 Sí, realizamos envíos a Europa y América. Los costes y tiempos de envío varían según el destino. Puedes
                 consultar más información en la sección de envíos de nuestra tienda.
               </p>
             </div>
-            <div className="bg-rose-50 p-6 rounded-lg">
-              <h3 className="font-bold text-lg mb-2">¿Cómo puedo solicitar una entrevista o colaboración?</h3>
+            <div className="bg-rose-100 p-6 rounded-lg">
+              <h3 className="font-bold text-lg mb-2 text-rose-600">¿Cómo puedo solicitar una entrevista o colaboración?</h3>
               <p className="text-gray-700">
                 Para solicitudes de entrevistas, colaboraciones o apariciones en medios, por favor utiliza el formulario
                 de contacto seleccionando "Propuesta de colaboración" en el asunto. Nuestro equipo se pondrá en contacto
                 contigo lo antes posible.
               </p>
             </div>
-            <div className="bg-rose-50 p-6 rounded-lg">
-              <h3 className="font-bold text-lg mb-2">¿Cuándo se publicará el próximo libro de Lis Samarah?</h3>
+            <div className="bg-rose-100 p-6 rounded-lg">
+              <h3 className="font-bold text-lg mb-2 text-rose-600">¿Cuándo se publicará el próximo libro de Lis Samarah?</h3>
               <p className="text-gray-700">
                 Las fechas de lanzamiento de nuevos libros se anuncian en nuestra página principal y en las redes
                 sociales. Suscríbete a nuestro boletín para ser el primero en enterarte de las novedades.

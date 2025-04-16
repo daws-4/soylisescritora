@@ -96,7 +96,7 @@ export default function ReviewPage({ params }: ReviewPageProps) {
               </p>
             </div>
 
-            <div className="markdown-content">{review.content}</div>
+            <div className="markdown-content text-rose-600">{review.content}</div>
           </div>
         </div>
       </section>
