@@ -67,7 +67,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 {product.category === "book" ? "Libro" : product.category === "ebook" ? "E-book" : "Merchandising"}
               </div>
 
-              <h1 className="text-3xl md:text-4xl font-bold">{product.title}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-rose-800">{product.title}</h1>
 
               <p className="text-lg text-gray-700">{product.description}</p>
 
@@ -83,32 +83,31 @@ export default function ProductPage({ params }: ProductPageProps) {
               {product.category === "book" && (
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="font-medium">Autor:</span> {product.author}
+                    <span className="font-medium text-gray-700">Autor:</span> <p className='text-rose-800'>{product.author}</p>
                   </div>
                   <div>
-                    <span className="font-medium">Fecha de publicación:</span>{" "}
-                    {new Date(product.publishDate).toLocaleDateString("es-ES", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
+                    <span className="font-medium text-gray-700">Fecha de publicación:</span><p className='text-rose-800'>{" "}
+                      {new Date(product.publishDate).toLocaleDateString("es-ES", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}</p>
                   </div>
                   <div>
-                    <span className="font-medium">Páginas:</span> {product.pages}
+                    <span className="font-medium text-gray-700">Páginas:</span> <p className='text-rose-800'>{product.pages}</p>
                   </div>
                   <div>
-                    <span className="font-medium">ISBN:</span> {product.isbn}
+                    <span className="font-medium text-gray-700">ISBN:</span> <p className='text-rose-800'>{product.isbn}</p>
                   </div>
                 </div>
               )}
 
               <div className="pt-6">
                 <button
-                  className={`w-full py-3 rounded-md flex items-center justify-center gap-2 ${
-                    product.inStock
+                  className={`w-full py-3 rounded-md flex items-center justify-center gap-2 ${product.inStock
                       ? "bg-rose-700 text-white hover:bg-rose-800"
                       : "bg-gray-300 text-gray-600 cursor-not-allowed"
-                  } transition-colors`}
+                    } transition-colors`}
                   disabled={!product.inStock}
                 >
                   <ShoppingBag className="h-5 w-5" />
@@ -120,7 +119,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 <div className="flex items-start gap-3">
                   <TruckIcon className="h-5 w-5 text-rose-700 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="font-medium">Envío gratuito en pedidos superiores a 30€</p>
+                    <p className="font-medium text-rose-800">Envío gratuito en pedidos superiores a 30€</p>
                     <p className="text-sm text-gray-600">Entrega estimada: 2-3 días laborables</p>
                   </div>
                 </div>
@@ -131,7 +130,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           {/* Product Description */}
           <div className="mt-16">
             <h2 className="text-2xl font-bold mb-6 text-rose-900">Descripción del producto</h2>
-            <div className="prose prose-rose max-w-none">{product.longDescription}</div>
+            <div className="prose prose-rose max-w-none text-gray-700">{product.longDescription}</div>
           </div>
         </div>
       </section>
@@ -158,7 +157,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="font-bold mb-2 line-clamp-1">{relatedProduct.title}</h3>
+                    <h3 className="font-bold mb-2 line-clamp-1 text-rose-800">{relatedProduct.title}</h3>
                     <div className="flex justify-between items-center">
                       <span className="font-bold text-rose-700">{relatedProduct.price.toFixed(2)} €</span>
                       <Link

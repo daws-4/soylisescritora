@@ -44,7 +44,7 @@ export default function ReviewPage({ params }: ReviewPageProps) {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative w-full py-16 bg-gradient-to-r from-rose-900 to-rose-700">
+      <section className="relative w-full py-16 bg-gradient-to-r from-pink-500 to-rose-700">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
           <div className="relative h-[300px] w-[200px] md:h-[400px] md:w-[300px] flex-shrink-0">
             <Image
@@ -96,7 +96,12 @@ export default function ReviewPage({ params }: ReviewPageProps) {
               </p>
             </div>
 
-            <div className="markdown-content">{review.content}</div>
+            <div className="markdown-content">
+              
+              <p className='text-gray-700 mb-4 text-lg font-semibold text-justify word-spacing-1 leading-loose'>
+                {review.content}
+                </p>
+              </div>
           </div>
         </div>
       </section>

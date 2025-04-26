@@ -17,7 +17,7 @@ export default function StorePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative w-full py-16 bg-gradient-to-r from-rose-900 to-rose-700">
+      <section className="relative w-full py-16 bg-gradient-to-r from-pink-500 to-rose-700">
         <div className="container mx-auto px-4 h-full flex items-center justify-center">
           <div className="text-center z-10 space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold text-white">Tienda</h1>

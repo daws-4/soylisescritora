@@ -14,7 +14,7 @@ export default function EbooksPage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative w-full py-16 bg-gradient-to-r from-rose-900 to-rose-700">
+      <section className="relative w-full py-16 bg-gradient-to-r from-pink-500 to-rose-700">
         <div className="container mx-auto px-4 h-full flex items-center justify-center">
           <div className="text-center z-10 space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold text-white">E-books</h1>
@@ -44,7 +44,7 @@ export default function EbooksPage() {
                     />
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{product.title}</h3>
+                    <h3 className="text-xl font-bold mb-2 text-rose-800">{product.title}</h3>
                     <p className="text-sm text-gray-500 mb-4">Por {product.author}</p>
                     <div className="flex justify-between items-center">
                       <span className="text-xl font-bold text-rose-700">{product.price.toFixed(2)} €</span>
