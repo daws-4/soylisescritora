@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Button } from "@heroui/react"
 import { Menu, X, BookOpen, ShoppingBag } from "lucide-react"
 import { usePathname } from "next/navigation"
 
@@ -23,7 +22,7 @@ export default function Header() {
   ]
 
   return (
-    <header className="bg-white border-b border-rose-400 sticky top-0 z-50">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
@@ -47,14 +46,20 @@ export default function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button as={Link} href="/reviews" variant="ghost" size="sm" className="gap-2">
+            <Link
+              href="/reviews"
+              className="text-sm font-medium text-gray-700 hover:text-rose-700 flex items-center gap-2"
+            >
               <BookOpen className="h-4 w-4" />
               <span>Reseñas</span>
-            </Button>
-            <Button as={Link} href="/store" variant="flat" size="sm" className="bg-rose-700 hover:bg-rose-800 gap-2">
+            </Link>
+            <Link
+              href="/store"
+              className="px-4 py-2 bg-rose-700 text-white rounded-md hover:bg-rose-800 transition-colors flex items-center gap-2"
+            >
               <ShoppingBag className="h-4 w-4" />
               <span>Tienda</span>
-            </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -85,26 +90,22 @@ export default function Header() {
               </Link>
             ))}
             <div className="pt-4 flex flex-col space-y-3">
-              <Button
-                as={Link}
+              <Link
                 href="/reviews"
-                variant="ghost"
-                className="w-full justify-start gap-2"
-                onPress={() => setIsMenuOpen(false)}
+                className="w-full justify-start border border-gray-300 px-4 py-2 rounded-md text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                onClick={() => setIsMenuOpen(false)}
               >
                 <BookOpen className="h-4 w-4" />
                 <span>Reseñas</span>
-              </Button>
-              <Button
-                as={Link}
+              </Link>
+              <Link
                 href="/store"
-                variant="flat"
-                className="w-full justify-start bg-rose-700 hover:bg-rose-800 gap-2"
-                onPress={() => setIsMenuOpen(false)}
+                className="w-full justify-start bg-rose-700 hover:bg-rose-800 px-4 py-2 rounded-md text-white flex items-center gap-2"
+                onClick={() => setIsMenuOpen(false)}
               >
                 <ShoppingBag className="h-4 w-4" />
                 <span>Tienda</span>
-              </Button>
+              </Link>
             </div>
           </div>
         </div>

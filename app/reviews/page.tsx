@@ -11,7 +11,7 @@ export default function ReviewsPage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative w-full py-16 bg-gradient-to-r from-rose-900 to-rose-700">
+      <section className="relative w-full py-16 bg-gradient-to-r from-pink-500 to-rose-700">
         <div className="container mx-auto px-4 h-full flex items-center justify-center">
           <div className="text-center z-10 space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold text-white">Reseñas</h1>
@@ -39,19 +39,6 @@ export default function ReviewsPage() {
                 Ver reseñas de libros
               </Link>
             </div>
-            <div className="bg-rose-50 rounded-lg p-8 text-center">
-              <h2 className="text-2xl font-bold text-rose-900 mb-4">Reseñas de Películas</h2>
-              <p className="mb-6 text-gray-700">
-                Críticas cinematográficas que exploran narrativa, dirección, actuaciones y el impacto cultural de films
-                destacados.
-              </p>
-              <Link
-                href="/reviews/movies"
-                className="inline-block px-6 py-2 bg-rose-700 text-white rounded-md hover:bg-rose-800 transition-colors"
-              >
-                Ver reseñas de películas
-              </Link>
-            </div>
           </div>
         </div>
       </section>
@@ -73,12 +60,12 @@ export default function ReviewsPage() {
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute top-2 right-2 bg-white text-rose-500 px-2 py-1 rounded text-sm font-medium">
+                  <div className="absolute top-2 right-2 bg-white px-2 py-1 rounded text-sm font-medium">
                     {review.category === "book" ? "Libro" : "Película"}
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-rose-800">{review.title}</h3>
+                  <h3 className="text-xl font-bold mb-2">{review.title}</h3>
                   <p className="text-sm text-gray-500 mb-2">Por {review.author}</p>
                   <div className="flex items-center mb-4">
                     {[...Array(5)].map((_, i) => (

@@ -7,48 +7,48 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative w-full py-16 bg-gradient-to-r from-rose-900 to-rose-700">
+      <section className="relative w-full py-16 bg-gradient-to-r from-pink-500 to-rose-700">
         <div className="container mx-auto px-4 h-full flex items-center justify-center">
           <div className="text-center z-10 space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold text-white">Sobre Lis Samarah</h1>
             <p className="text-xl text-rose-100 max-w-2xl mx-auto">
-              Conoce más sobre la escritora y crítica literaria detrás de <span className="font-bold uppercase">Sentimientos Sangrientos</span>
+              Conoce más sobre la escritora y crítica literaria detrás de "Sentimientos Sangrientos"
             </p>
           </div>
         </div>
       </section>
 
       {/* Biography Section */}
-      <section className="py-16 bg-gradient-to-b from-gray-100 to-rose-100">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative h-[500px] w-full">
+            <div className="relative h-[600px] w-full">
               <Image
-                src="https://random-image-pepebigotes.vercel.app/api/random-image"
+                src="/pictures/lis3.jpg"
                 alt="Lis Samarah"
                 fill
-                className="object-cover rounded-lg shadow-lg"
+                className="object-cover rounded-lg shadow-lg "
               />
             </div>
-            <div className="space-y-6 [&>p]:text-rose-700 [&>p]:text-balance">
+            <div className="space-y-6">
               <h2 className="text-3xl font-bold text-rose-900">Biografía</h2>
-              <p className="text-lg">
-                <strong>Lis Samarah</strong> nació en el corazón de España, donde desde temprana edad mostró una fascinación por las
+              <p className="text-lg text-rose-800">
+                Lis Samarah nació en el corazón de España, donde desde temprana edad mostró una fascinación por las
                 palabras y las historias. Creció rodeada de libros, desarrollando una sensibilidad especial para captar
                 la belleza y la complejidad de la condición humana.
               </p>
-              <p className="text-lg">
-                Estudió Literatura en la <strong>Universidad de Madrid</strong>, donde descubrió su pasión por la crítica literaria y
+              <p className="text-lg text-rose-800">
+                Estudió Literatura en la Universidad de Madrid, donde descubrió su pasión por la crítica literaria y
                 comenzó a forjar su propio estilo como escritora. Sus primeros relatos cortos llamaron la atención por
                 su intensidad emocional y su prosa poética.
               </p>
-              <p className="text-lg">
+              <p className="text-lg text-rose-800">
                 En 2018, publicó su primera novela, "Sentimientos Sangrientos", que rápidamente captó la atención de
                 lectores y críticos por su exploración profunda de las emociones humanas y su estilo único. La obra se
                 convirtió en un referente dentro de su género y consolidó a Lis como una voz importante en el panorama
                 literario español.
               </p>
-              <p className="text-lg">
+              <p className="text-lg text-rose-800">
                 Paralelamente a su carrera como escritora, Lis ha desarrollado una labor como crítica literaria y de
                 cine, compartiendo su perspectiva única y su análisis profundo de obras contemporáneas.
               </p>
@@ -58,7 +58,7 @@ export default function AboutPage() {
       </section>
 
       {/* Writing Journey */}
-      <section className="py-16 bg-gradient-to-b from-rose-100 to-gray-100">
+      {/* <section className="py-16 bg-rose-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-rose-900">Trayectoria Literaria</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -86,40 +86,40 @@ export default function AboutPage() {
                 <div className="w-12 h-12 bg-rose-700 text-white rounded-full flex items-center justify-center mb-6 text-xl font-bold">
                   {item.number}
                 </div>
-                <h3 className="text-xl font-bold mb-4 text-rose-800">{item.title}</h3>
-                <p className="text-rose-500 text-balance">{item.description}</p>
+                <h3 className="text-xl font-bold mb-4">{item.title}</h3>
+                <p className='text-rose-800'>{item.description}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Philosophy Section */}
-      <section className="py-16 bg-gray-100">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 order-2 md:order-1 [&>p]:text-rose-700 [&>p]:text-balance">
+            <div className="space-y-6 order-2 md:order-1">
               <h2 className="text-3xl font-bold text-rose-900">Filosofía Literaria</h2>
-              <p className="text-lg">
-                Para Lis Samarah, <strong>la literatura es mucho más que entretenimiento</strong>; es un vehículo para explorar la
+              <p className="text-lg text-rose-800">
+                Para Lis Samarah, la literatura es mucho más que entretenimiento; es un vehículo para explorar la
                 complejidad del alma humana y un puente que conecta experiencias y emociones universales.
               </p>
-              <p className="text-lg">
-                <i>"Escribir es un acto de valentía"</i>, afirma Lis. "Requiere la disposición de sumergirse en las
+              <p className="text-lg text-rose-800">
+                "Escribir es un acto de valentía", afirma Lis. "Requiere la disposición de sumergirse en las
                 profundidades de uno mismo y extraer verdades que a veces pueden ser incómodas pero necesarias."
               </p>
-              <p className="text-lg">
+              <p className="text-lg text-rose-800">
                 En sus reseñas, Lis busca ir más allá de la superficie, analizando no solo los aspectos técnicos de las
                 obras sino también su impacto emocional y su relevancia en el contexto cultural actual.
               </p>
-              <p className="text-lg">
+              <p className="text-lg text-rose-800">
                 Su enfoque crítico se caracteriza por la honestidad, la empatía y un profundo respeto por el trabajo
                 creativo, valores que también guían su propia escritura.
               </p>
             </div>
-            <div className="relative h-[400px] w-full order-1 md:order-2">
+            <div className="relative h-[500px] w-full order-1 md:order-2">
               <Image
-                src="https://random-image-pepebigotes.vercel.app/api/random-image"
+                src="/pictures/lis4.jpg"
                 alt="Lis Samarah escribiendo"
                 fill
                 className="object-cover rounded-lg shadow-lg"
@@ -130,7 +130,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-rose-800 text-white">
+      <section className="py-16 bg-pink-500 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">Descubre la Obra de Lis Samarah</h2>
           <p className="text-xl max-w-2xl mx-auto mb-10">
@@ -144,7 +144,6 @@ export default function AboutPage() {
             <Button
               as={Link}
               href="/reviews"
-              variant="ghost"
               size="lg"
               className="border-white text-white hover:bg-white/10"
             >

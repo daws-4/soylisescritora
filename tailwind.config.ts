@@ -62,17 +62,18 @@ const config: Config = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        rose: {
-          50: "#fff1f2",
-          100: "#ffe4e6",
-          200: "#fecdd3",
-          300: "#fda4af",
-          400: "#fb7185",
-          500: "#f43f5e",
-          600: "#e11d48",
-          700: "#be123c",
-          800: "#9f1239",
-          900: "#881337",
+        // Colores personalizados
+        pink: {
+          500: "#f7496E", // Color primario
+          400: "#fa7b8e", // Color secundario
+          50: "#fff1f5",
+          100: "#ffe4eb",
+          200: "#fecdd6",
+          300: "#fda4b4",
+          600: "#e13d61",
+          700: "#c0304f",
+          800: "#9f2542",
+          900: "#801e35",
         },
       },
       borderRadius: {
@@ -99,14 +100,11 @@ const config: Config = {
         },
       },
       animation: {
-        "accordion-down": "accordion-down 350ms ease-out",
-        "accordion-up": "accordion-up 350ms ease-out",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
-      fontFamily: {
-        roman: ["Times New Roman", "serif"],
-      }
     },
   },
   plugins: [],
-}
+};
 export default config

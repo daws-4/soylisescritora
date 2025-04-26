@@ -99,7 +99,7 @@ export default function StorePage() {
                       fill
                       className="object-cover"
                     />
-                    <div className="absolute top-2 right-2 bg-white text-rose-500 px-2 py-1 rounded text-sm font-medium">
+                    <div className="absolute top-2 right-2 bg-white px-2 py-1 rounded text-sm font-medium">
                       {product.category === "book"
                         ? "Libro"
                         : product.category === "ebook"
@@ -108,7 +108,7 @@ export default function StorePage() {
                     </div>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2 text-rose-800">{product.title}</h3>
+                    <h3 className="text-xl font-bold mb-2">{product.title}</h3>
                     <p className="text-sm text-gray-500 mb-4">Por {product.author}</p>
                     <div className="flex justify-between items-center">
                       <span className="text-xl font-bold text-rose-700">{product.price.toFixed(2)} €</span>
@@ -127,7 +127,7 @@ export default function StorePage() {
           <div className="text-center mt-12">
             <Link
               href="/store/all"
-              className="inline-block px-6 py-3 border border-rose-700 text-rose-700 rounded-md hover:bg-rose-700 hover:text-white transition-colors"
+              className="inline-block px-6 py-3 border border-rose-700 text-rose-700 rounded-md hover:bg-rose-50 transition-colors"
             >
               Ver todos los productos
             </Link>
@@ -145,7 +145,7 @@ export default function StorePage() {
                 <div className="bg-rose-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-xl font-bold text-rose-700">1</span>
                 </div>
-                <h3 className="font-bold mb-2">Envío Nacional</h3>
+                <h3 className="font-bold mb-2 text-rose-800">Envío Nacional</h3>
                 <p className="text-sm text-gray-700">
                   Envío gratuito en pedidos superiores a 30€. Entrega en 2-3 días laborables.
                 </p>
@@ -154,8 +154,8 @@ export default function StorePage() {
                 <div className="bg-rose-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-xl font-bold text-rose-700">2</span>
                 </div>
-                <h3 className="font-bold mb-2">Envío Internacional</h3>
-                <p className="text-sm text-gray-700">
+                <h3 className="font-bold mb-2 text-rose-800">Envío Internacional</h3>
+                <p className="text-sm text-gray-700 ">
                   Disponible a Europa y América. Consulta tiempos y costes de envío.
                 </p>
               </div>
@@ -163,7 +163,7 @@ export default function StorePage() {
                 <div className="bg-rose-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-xl font-bold text-rose-700">3</span>
                 </div>
-                <h3 className="font-bold mb-2">Devoluciones</h3>
+                <h3 className="font-bold mb-2 text-rose-800">Devoluciones</h3>
                 <p className="text-sm text-gray-700">
                   30 días para devoluciones. El producto debe estar en perfectas condiciones.
                 </p>

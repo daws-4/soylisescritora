@@ -10,7 +10,7 @@ export const metadata = {
   title: "Lis Samarah | Escritora y Crítica Literaria",
   description:
     "Sitio oficial de Lis Samarah, autora de Sentimientos Sangrientos. Reseñas de libros, películas y tienda virtual.",
-  generator: 'v0.dev'
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es">
       <body className={inter.className}>
         <Header />
         <main>{children}</main>
@@ -28,6 +28,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-
-import './globals.css'

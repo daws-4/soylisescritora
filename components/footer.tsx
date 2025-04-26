@@ -12,15 +12,15 @@ export default function Footer() {
               Escritora y crítica literaria, compartiendo pasión por la literatura y el cine.
             </p>
             <div className="flex space-x-4">
-              <Link target="_blank" rel="noopener noreferrer nofollow" href="https://facebook.com" className="hover:text-rose-400 transition-colors">
+              <Link href="https://facebook.com" className="hover:text-rose-400 transition-colors">
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
               </Link>
-              <Link target="_blank" rel="noopener noreferrer nofollow" href="https://instagram.com" className="hover:text-rose-400 transition-colors">
+              <Link href="https://instagram.com" className="hover:text-rose-400 transition-colors">
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
               </Link>
-              <Link target="_blank" rel="noopener noreferrer nofollow" href="https://twitter.com" className="hover:text-rose-400 transition-colors">
+              <Link href="https://twitter.com" className="hover:text-rose-400 transition-colors">
                 <Twitter className="h-5 w-5" />
                 <span className="sr-only">Twitter</span>
               </Link>
@@ -59,11 +59,6 @@ export default function Footer() {
               <li>
                 <Link href="/reviews/books" className="text-gray-300 hover:text-white transition-colors">
                   Libros
-                </Link>
-              </li>
-              <li>
-                <Link href="/reviews/movies" className="text-gray-300 hover:text-white transition-colors">
-                  Películas
                 </Link>
               </li>
               <li>

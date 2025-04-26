@@ -19,21 +19,21 @@ body {
   background: rgb(var(--background-rgb));
 }
 
-/* HeroUI custom theme */
+/* Custom theme */
 :root {
-  --heroui-primary: 190, 24, 93;
-  --heroui-primary-foreground: 255, 255, 255;
-  --heroui-secondary: 226, 232, 240;
-  --heroui-secondary-foreground: 15, 23, 42;
-  --heroui-accent: 249, 250, 251;
-  --heroui-accent-foreground: 15, 23, 42;
-  --heroui-destructive: 239, 68, 68;
-  --heroui-destructive-foreground: 255, 255, 255;
-  --heroui-muted: 241, 245, 249;
-  --heroui-muted-foreground: 100, 116, 139;
-  --heroui-card: 255, 255, 255;
-  --heroui-card-foreground: 15, 23, 42;
-  --heroui-border: 226, 232, 240;
-  --heroui-input: 226, 232, 240;
-  --heroui-ring: 190, 24, 93;
+  --primary: 247, 73, 110; /* #f7496E */
+  --primary-foreground: 255, 255, 255;
+  --secondary: 250, 123, 142; /* #fa7b8e */
+  --secondary-foreground: 15, 23, 42;
+  --accent: 249, 250, 251;
+  --accent-foreground: 15, 23, 42;
+  --destructive: 239, 68, 68;
+  --destructive-foreground: 255, 255, 255;
+  --muted: 241, 245, 249;
+  --muted-foreground: 100, 116, 139;
+  --card: 255, 255, 255;
+  --card-foreground: 15, 23, 42;
+  --border: 226, 232, 240;
+  --input: 226, 232, 240;
+  --ring: 247, 73, 110;
 }
