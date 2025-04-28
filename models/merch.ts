@@ -1,26 +1,34 @@
 import { Schema, model, models } from "mongoose";
 
-const mensajeSchema = new Schema(
+const merchSchema = new Schema(
   {
-    nombre: {
+    name: {
       type: String,
       required: true,
       trim: true,
     },
-    email: {
+    description: {
       type: String,
       required: true,
       trim: true,
     },
-    asunto: {
+    price: {
+      type: Number,
+      required: true,
+    },
+    imageUrl: {
       type: String,
       required: true,
       trim: true,
     },
-    mensaje: {
+    category: {
       type: String,
       required: true,
       trim: true,
+    },
+    stock: {
+      type: Number,
+      default: 0,
     },
   },
   {
@@ -28,4 +36,4 @@ const mensajeSchema = new Schema(
   }
 );
 
-export default models.Mensaje || model("Mensaje", mensajeSchema);
+export default models.Merch || model("Merch", merchSchema);

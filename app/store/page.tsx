@@ -108,7 +108,7 @@ export default function StorePage() {
                     </div>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{product.title}</h3>
+                    <h3 className="text-xl font-bold mb-2 text-rose-800">{product.title}</h3>
                     <p className="text-sm text-gray-500 mb-4">Por {product.author}</p>
                     <div className="flex justify-between items-center">
                       <span className="text-xl font-bold text-rose-700">{product.price.toFixed(2)} €</span>

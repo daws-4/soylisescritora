@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-const reviewSchema = new Schema(
+const productoSchema = new Schema(
   {
     id: {
       type: String,
@@ -23,25 +23,17 @@ const reviewSchema = new Schema(
       required: true,
       trim: true,
     },
-    excerpt: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    content: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    rating: {
+    price: {
       type: Number,
       required: true,
-      min: 1,
-      max: 5,
     },
-    category: {
+    description: {
       type: String,
-      enum: ["book", "movie"],
+      required: true,
+      trim: true,
+    },
+    longDescription: {
+      type: String,
       required: true,
       trim: true,
     },
@@ -54,9 +46,28 @@ const reviewSchema = new Schema(
       type: Date,
       required: true,
     },
-    tags: {
-      type: [String],
-      default: [],
+    pages: {
+      type: Number,
+      required: true,
+    },
+    isbn: {
+      type: String,
+      trim: true,
+      default: null,
+    },
+    inStock: {
+      type: Boolean,
+      default: true,
+    },
+    featured: {
+      type: Boolean,
+      default: false,
+    },
+    category: {
+      type: String,
+      enum: ["book", "ebook", "audiobook"], // Example categories
+      required: true,
+      trim: true,
     },
   },
   {
@@ -64,4 +75,4 @@ const reviewSchema = new Schema(
   }
 );
 
-export default models.Review || model("Review", reviewSchema);
+export default models.Producto || model("Producto", productoSchema);
