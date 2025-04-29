@@ -1,7 +1,9 @@
+'use client'
 import type React from "react"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { LayoutDashboard, FileText, PlusCircle, Settings, LogOut } from "lucide-react"
+import axios from 'axios'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   // En un entorno real, verificaríamos la autenticación del usuario
@@ -9,6 +11,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const authenticated = true // isAuthenticated()
 
   if (!authenticated) {
+    redirect("/login")
+  }
+
+  const handleLogout = async() => {
+    const logout = confirm("¿Estás seguro de que quieres cerrar sesión?")
+    if (logout) {
+      await axios.get("/api/auth/logout")
+    }
     redirect("/login")
   }
 
@@ -59,13 +69,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </Link>
             </li>
             <li className="border-t border-gray-200 mt-6 pt-4">
-              <Link
-                href="/logout"
+              <div
                 className="flex items-center px-6 py-3 text-gray-700 hover:bg-pink-50 hover:text-pink-500"
               >
                 <LogOut className="w-5 h-5 mr-3" />
-                <span>Cerrar sesión</span>
-              </Link>
+                <span onClick={handleLogout}>Cerrar sesión</span>
+              </div>
             </li>
           </ul>
         </nav>

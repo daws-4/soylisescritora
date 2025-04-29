@@ -8,7 +8,7 @@ export default function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-
+    const router = useRouter(); 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("Form submitted", { username, password });
@@ -19,9 +19,10 @@ export default function LoginPage() {
             })
             console.log(response)
             if (response.status == 200) {
+                    router.push("/dashboard");
                 console.log('Login successful', response.data);
                 addToast({
-                    title: "Toast title",
+                    title: "Inicio de Sesión existoso",
                     description: "Toast displayed successfully",
                     color: "secondary",
                 })
