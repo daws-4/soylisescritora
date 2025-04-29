@@ -140,7 +140,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">Título de la Reseña {item}</h3>
+                  <h3 className="text-xl font-bold mb-2 text-rose-800">Título de la Reseña {item}</h3>
                   <p className="text-gray-600 mb-4">
                     Una mirada profunda a esta fascinante obra que combina elementos de...
                   </p>
