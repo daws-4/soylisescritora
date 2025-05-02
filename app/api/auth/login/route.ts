@@ -47,7 +47,7 @@ const comparePassword= await bcrypt.compare(data.password, admins.password)
     // Set the cookie using next/headers
     const cookieStore = await cookies();
     cookieStore.set({
-      name: "token",
+      name: "loginCookie",
       value: token,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

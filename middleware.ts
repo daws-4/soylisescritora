@@ -5,7 +5,7 @@ import { jwtVerify } from "jose";
 const SECRET_KEY = process.env.SECRET_KEY || "your-secret-key";
 
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
+  const token = request.cookies.get("loginCookie")?.value;
   const { pathname } = request.nextUrl;
 
   // Function to verify the JWT token

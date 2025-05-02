@@ -12,7 +12,7 @@ export default function DashboardPage() {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
         <Link
-          href="/dashboard/new"
+          href="/dashboard/posts/new"
           className="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition-colors flex items-center gap-2"
         >
           <PenTool className="w-4 h-4" />

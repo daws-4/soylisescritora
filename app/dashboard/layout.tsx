@@ -18,8 +18,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const logout = confirm("¿Estás seguro de que quieres cerrar sesión?")
     if (logout) {
       await axios.get("/api/auth/logout")
+      location.reload()
     }
-    redirect("/login")
   }
 
   return (
@@ -69,11 +69,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </Link>
             </li>
             <li className="border-t border-gray-200 mt-6 pt-4">
-              <div
-                className="flex items-center px-6 py-3 text-gray-700 hover:bg-pink-50 hover:text-pink-500"
+              <div onClick={handleLogout}
+                className="cursor-pointer flex items-center px-6 py-3 text-gray-700 hover:bg-pink-50 hover:text-pink-500"
               >
                 <LogOut className="w-5 h-5 mr-3" />
-                <span onClick={handleLogout}>Cerrar sesión</span>
+                <span >Cerrar sesión</span>
               </div>
             </li>
           </ul>

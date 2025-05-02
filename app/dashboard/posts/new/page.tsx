@@ -1,12 +1,13 @@
 "use client"
 
 import type React from "react"
-
+import axios from "axios"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import type { PublicationType, PublicationStatus } from "@/lib/dashboard-types"
 import { ArrowLeft, Save } from "lucide-react"
+import { addToast} from "@heroui/react";
 
 export default function NewPublicationPage() {
   const router = useRouter()
@@ -15,9 +16,14 @@ export default function NewPublicationPage() {
     title: "",
     excerpt: "",
     content: "",
-    coverImage: "/placeholder.svg?height=400&width=600&text=Nueva+Publicación",
+    coverImage: "",
     type: "article" as PublicationType,
     status: "draft" as PublicationStatus,
+    rating: 0,
+    category: "book",
+    author: '',
+    publishDate: '',
+    tags: '',
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -38,13 +44,23 @@ export default function NewPublicationPage() {
 
     try {
       // Simulamos el envío del formulario
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-
-      // En un caso real, aquí se enviaría la información al servidor
-      // y se obtendría el ID de la nueva publicación
-
-      // Redirigir al dashboard después de crear la publicación
-      router.push("/dashboard")
+      const response = await axios.post("/api/posts", formData)
+      console.log(response.data)
+      if(response.status !== 201) {
+        addToast({
+          title: "Error al crear la publicación",
+          description: "No se pudo crear la publicación. Por favor, inténtalo de nuevo.",
+          color: "error",
+        })
+        throw new Error("Error al crear la publicación")
+      }else{
+        router.push("/dashboard")
+        addToast({
+          title: "Publicación creada con éxito",
+          description: "La publicación ha sido creada correctamente.",
+          color: "success",
+        })
+      }
     } catch (error) {
       setSubmitError(true)
     } finally {
@@ -84,11 +100,25 @@ export default function NewPublicationPage() {
                   value={formData.title}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                   placeholder="Introduce el título de la publicación"
                 />
               </div>
-
+              <div>
+                <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-1">
+                  Nombre del autor <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="author"
+                  name="author"
+                  value={formData.author}
+                  onChange={handleChange}
+                  required
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  placeholder="Introduce el nombre del autor"
+                />
+              </div>
               <div>
                 <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 mb-1">
                   Extracto <span className="text-red-500">*</span>
@@ -100,7 +130,7 @@ export default function NewPublicationPage() {
                   onChange={handleChange}
                   required
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                   placeholder="Breve resumen de la publicación (aparecerá en las vistas previas)"
                 ></textarea>
               </div>
@@ -116,9 +146,24 @@ export default function NewPublicationPage() {
                   onChange={handleChange}
                   required
                   rows={15}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                   placeholder="Contenido principal de la publicación (admite formato Markdown)"
                 ></textarea>
+              </div>
+              <div>
+                <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-1">
+                  Etíquetas <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="tags"
+                  name="tags"
+                  value={formData.tags}
+                  onChange={handleChange}
+                  required
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  placeholder="Introduce las etiquetas, separadas por comas"
+                />
               </div>
             </div>
 
@@ -133,7 +178,7 @@ export default function NewPublicationPage() {
                   name="coverImage"
                   value={formData.coverImage}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                   placeholder="URL de la imagen de portada"
                 />
               </div>
@@ -148,29 +193,43 @@ export default function NewPublicationPage() {
                   value={formData.type}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 >
                   <option value="review">Reseña</option>
                   <option value="article">Artículo</option>
                   <option value="news">Noticia</option>
                 </select>
               </div>
-
               <div>
-                <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
-                  Estado <span className="text-red-500">*</span>
+                <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
+                  Tipo <span className="text-red-500">*</span>
                 </label>
                 <select
-                  id="status"
-                  name="status"
-                  value={formData.status}
+                  id="type"
+                  name="type"
+                  value={formData.type}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 >
-                  <option value="draft">Borrador</option>
-                  <option value="published">Publicado</option>
+                  <option value="review">Reseña</option>
+                  <option value="article">Artículo</option>
+                  <option value="news">Noticia</option>
                 </select>
+              </div>
+              <div>
+                <label htmlFor="publishDate" className="block text-sm font-medium text-gray-700 mb-1">
+                  Fecha de publicación <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="publishDate"
+                  type='date'
+                  name="publishDate"
+                  value={formData.publishDate}
+                  onChange={handleChange}
+                  required
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                />
               </div>
 
               <div className="bg-yellow-50 p-4 rounded-md border border-yellow-200 mt-6">
