@@ -2,12 +2,6 @@ import { Schema, model, models } from "mongoose";
 
 const reviewSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-    },
     title: {
       type: String,
       required: true,
@@ -17,6 +11,7 @@ const reviewSchema = new Schema(
       type: String,
       required: true,
       trim: true,
+      unique: true,
     },
     coverImage: {
       type: String,
@@ -41,7 +36,6 @@ const reviewSchema = new Schema(
     },
     category: {
       type: String,
-      enum: ["book", "movie"],
       required: true,
       trim: true,
     },
@@ -57,6 +51,17 @@ const reviewSchema = new Schema(
     tags: {
       type: [String],
       default: [],
+    },
+    status: {
+      type: String,
+      enum: ["published", "draft", "archived"],
+      default: "draft",
+    },
+    type: {
+      type: String,
+      enum: ["review", "article", "news"],
+      required: true,
+      trim: true,
     },
   },
   {

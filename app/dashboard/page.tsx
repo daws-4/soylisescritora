@@ -1,11 +1,83 @@
+'use client'
 import Link from "next/link"
 import Image from "next/image"
-import { getPublicationStats, getPublishedPublications } from "@/lib/dashboard-data"
+import axios from 'axios'
+import { useEffect, useState } from "react"
 import { FileText, BookOpen, Newspaper, PenTool, Clock } from "lucide-react"
+import type { Publication, PublicationType } from "@/lib/dashboard-types"
+
 
 export default function DashboardPage() {
+
+  interface Post {
+    _id: string;
+    title: string;
+    type: string;
+    coverImage?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    status?: string;
+  }
+
+  const [posts, setPosts] = useState<Post[]>([])
+  const [loading, setLoading] = useState(true) 
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('/api/posts')
+        setPosts(response.data)
+        console.log(response.data)
+      } catch (error) {
+        console.error("Error fetching posts:", error)
+      } finally {
+        setLoading(false)
+        console.log("Posts fetched:", posts)
+      }
+    }
+
+    fetchPosts()
+  }, [])
+
+
+
+
+  function getPublishedPublications() {
+    return posts.filter((pub) => pub.status === "published")
+  }
+  
+  function getDraftPublications() {
+    return posts.filter((pub) => pub.status === "draft")
+  }
+  
+  function getArchivedPublications() {
+    return posts.filter((pub) => pub.status === "archived")
+  }
+  
+  function getPublicationById(id: string) {
+    return posts.find((pub) => pub._id === id)
+  }
+  
+  function getPublicationsByType(type: PublicationType) {
+    return posts.filter((pub) => pub.type === type)
+  }
+  
+  function getPublicationStats() {
+    return {
+      total: posts.length,
+      published: getPublishedPublications().length,
+      draft: getDraftPublications().length,
+      archived: getArchivedPublications().length,
+      reviews: getPublicationsByType("review").length,
+      articles: getPublicationsByType("article").length,
+      news: getPublicationsByType("news").length,
+    }
+  }
+  
+
+
   const stats = getPublicationStats()
-  const recentPublications = getPublishedPublications().slice(0, 3)
+  const recentPublications = posts.slice(0, 3)
 
   return (
     <div className="space-y-8">
@@ -118,9 +190,9 @@ export default function DashboardPage() {
             Ver todas
           </Link>
         </div>
-        <div className="space-y-4">
+       {loading? '' : <div className="space-y-4">
           {recentPublications.map((publication) => (
-            <div key={publication.id} className="flex items-center gap-4 p-4 hover:bg-gray-50 rounded-lg">
+            <div key={publication._id} className="flex items-center gap-4 p-4 hover:bg-gray-50 rounded-lg">
               <div className="relative w-16 h-16 flex-shrink-0">
                 <Image
                   src={publication.coverImage || "/placeholder.svg"}
@@ -138,13 +210,13 @@ export default function DashboardPage() {
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-500 flex items-center">
                   <Clock className="w-4 h-4 mr-1" />
-                  {new Date(publication.publishedAt || publication.updatedAt).toLocaleDateString("es-ES", {
+                  {new Date(publication.publishedAt || publication.updatedAt || Date.now()).toLocaleDateString("es-ES", {
                     day: "numeric",
                     month: "short",
                   })}
                 </span>
                 <Link
-                  href={`/dashboard/${publication.id}`}
+                  href={`/dashboard/posts/${publication._id}`}
                   className="px-3 py-1 bg-pink-100 text-pink-500 rounded-md hover:bg-pink-200 transition-colors text-sm"
                 >
                   Editar
@@ -152,7 +224,7 @@ export default function DashboardPage() {
               </div>
             </div>
           ))}
-        </div>
+        </div>}
       </div>
     </div>
   )

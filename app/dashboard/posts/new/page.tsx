@@ -19,8 +19,8 @@ export default function NewPublicationPage() {
     coverImage: "",
     type: "article" as PublicationType,
     status: "draft" as PublicationStatus,
-    rating: 0,
     category: "book",
+    rating: 1,
     author: '',
     publishDate: '',
     tags: '',
@@ -50,7 +50,7 @@ export default function NewPublicationPage() {
         addToast({
           title: "Error al crear la publicación",
           description: "No se pudo crear la publicación. Por favor, inténtalo de nuevo.",
-          color: "error",
+          color: "danger",
         })
         throw new Error("Error al crear la publicación")
       }else{
@@ -176,6 +176,7 @@ export default function NewPublicationPage() {
                   type="text"
                   id="coverImage"
                   name="coverImage"
+                  required
                   value={formData.coverImage}
                   onChange={handleChange}
                   className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -184,20 +185,22 @@ export default function NewPublicationPage() {
               </div>
 
               <div>
-                <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
-                  Tipo <span className="text-red-500">*</span>
+                <label htmlFor="rating" className="block text-sm font-medium text-gray-700 mb-1">
+                  Puntuación<span className="text-red-500">*</span>
                 </label>
                 <select
-                  id="type"
-                  name="type"
-                  value={formData.type}
+                  id="rating"
+                  name="rating"
+                  value={formData.rating}
                   onChange={handleChange}
                   required
                   className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 >
-                  <option value="review">Reseña</option>
-                  <option value="article">Artículo</option>
-                  <option value="news">Noticia</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
                 </select>
               </div>
               <div>
@@ -217,6 +220,39 @@ export default function NewPublicationPage() {
                   <option value="news">Noticia</option>
                 </select>
               </div>
+              <div>
+                <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
+                  Status <span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="status"
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  required
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                >
+                  <option value="published">Publicado</option>
+                  <option value="draft">Borrador</option>
+                  <option value="archived">Archivado</option>
+                </select>
+              </div>
+              {/* <div>
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+                  Category <span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  required
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                >
+                  <option value="book">Libro</option>
+                  <option value="movie">Película</option>
+                </select>
+              </div> */}
               <div>
                 <label htmlFor="publishDate" className="block text-sm font-medium text-gray-700 mb-1">
                   Fecha de publicación <span className="text-red-500">*</span>

@@ -25,7 +25,6 @@ export async function middleware(request: NextRequest) {
     if (token) {
       const payload = await verifyJWT(token);
       if (payload) {
-        console.log("User role:", payload.rol);
         return NextResponse.redirect(new URL("/dashboard", request.url));
       }
     }
@@ -39,7 +38,6 @@ export async function middleware(request: NextRequest) {
     try {
       const payload = await verifyJWT(token);
       if (payload) {
-        console.log("User role:", payload.rol);
         return NextResponse.next();
       } else {
         return NextResponse.redirect(new URL("/", request.url));

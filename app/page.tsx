@@ -1,9 +1,53 @@
+'use client'
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@heroui/react"
 import { BookOpen, Star, ShoppingBag } from "lucide-react"
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
+  interface Post {
+    id: string;
+    title: string;
+    excerpt: string;
+    author: string;
+    rating: number;
+    content: string;
+    slug: string;
+    type: string;
+    coverImage?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    status?: string;
+  }
+  const [reviews, setReviews] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get('/api/posts');
+        const allReviews: Post[] = response.data;
+
+        // Filter for 'published' status and get the latest 3
+        const publishedReviews = allReviews
+          .filter(review => review.status === 'published')
+          .slice(-3) // Get the last 3 (latest)
+          .reverse(); // Reverse to show the latest first
+
+        setReviews(publishedReviews);
+      } catch (err: any) {
+        console.error("Failed to fetch reviews:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReviews();
+  }, []);
+
+  const recentReviews = reviews
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -19,9 +63,9 @@ export default function Home() {
               "Creo fielmente que la literatura es mi canal para expresar aquello que fluye por mis venas. Es más que un trabajo; es mi pasión."
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button 
-              className="text-white border-white hover:bg-white/10"
-              as={Link} href="/reviews" size="lg">
+              <Button
+                className="text-white border-white hover:bg-white/10"
+                as={Link} href="/reviews" size="lg">
                 Leer Reseñas
               </Button>
               <Button
@@ -54,12 +98,12 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg text-rose-700">
-                Lis Samarah es una apasionada escritora y crítica literaria española, cuya pluma da vida a historias que
+                Lis Samarah es una apasionada escritora y crítica literaria venezolana, cuya pluma da vida a historias que
                 cautivan y conmueven. Con una sensibilidad única para captar la esencia de las emociones humanas, Lis ha
                 conquistado a lectores con su estilo distintivo y profundo.
               </p>
               <p className="text-lg text-rose-700">
-                Nacida y criada en España, su amor por la literatura comenzó desde temprana edad, llevándola a explorar
+                Nacida y criada en Venezuela, actualmente residente en España su amor por la literatura comenzó desde temprana edad, llevándola a explorar
                 diversos géneros y estilos que han enriquecido su propia voz como autora.
               </p>
               <p className="text-lg text-rose-700">
@@ -100,13 +144,12 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-lg">
-                "Sentimientos Sangrientos" es la obra maestra de Lis Samarah que ha cautivado a lectores de todas
-                partes. Una novela que explora las profundidades del alma humana, donde el amor y el dolor se entrelazan
-                en una danza apasionada y a veces desgarradora.
+                "Sentimientos Sangrientos" su primera obra explora la historia de vida de dos adolescentes atormentados por los juegos de la mente y demás pruebas vivenciales en forma de una novela juvenil, accesible no solamente para los jovenes que podrían identificarse con las experiencias de Peter y Brooklyn, sino también dirigida a docentes y padres; para conocer la realidad de lo que sucede en algunos entornos educativos. Para sensibilizar y apoyar a cualquier adolescente que haya pasado por acoso escolar o problemas de salud mental.
+
+                
               </p>
               <p className="text-lg">
-                Con una prosa poética y personajes inolvidables, esta obra invita al lector a sumergirse en un viaje
-                emocional que deja una huella imborrable en el corazón.
+                Puedes encontrar una versión mejorada de esta gran obra en la plataforma de Wattpad, bajo el nombre de "Sentimientos Sangrientos (Lis' Version).
               </p>
               <Button
                 as={Link}
@@ -126,32 +169,34 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-rose-900">Reseñas Recientes</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
+            {recentReviews.map((item) => (
               <div
-                key={item}
+                key={item.slug}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="relative h-48 w-full">
                   <Image
-                    src={`/placeholder.svg?height=200&width=300&text=Reseña ${item}`}
-                    alt={`Reseña ${item}`}
+                    src={item.coverImage || "/placeholder.svg"}
+                    alt={`Reseña ${item.title}`}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-rose-800">Título de la Reseña {item}</h3>
+                  <h3 className="text-xl font-bold mb-2 text-rose-800">{item.title}</h3>
                   <p className="text-gray-600 mb-4">
-                    Una mirada profunda a esta fascinante obra que combina elementos de...
+                    {item.excerpt.length > 100 ? `${item.excerpt.slice(0, 100)}...` : item.excerpt}
                   </p>
                   <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-1">
-                      {[...Array(4)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <div className="flex items-center mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-4 w-4 ${i < item.rating ? "fill-yellow-400 text-yellow-400" : "fill-none text-gray-300"}`}
+                        />
                       ))}
-                      <Star className="h-4 w-4 fill-none text-yellow-400" />
                     </div>
-                    <Button as={Link} href={`/reviews/${item}`} className="text-rose-700 p-0">
+                    <Button as={Link} href={`/reviews/${item.slug}`} className="text-rose-700 p-0">
                       Leer más
                     </Button>
                   </div>

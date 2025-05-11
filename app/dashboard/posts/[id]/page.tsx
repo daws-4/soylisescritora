@@ -1,53 +1,105 @@
 "use client"
 
 import type React from "react"
-
+import axios from "axios"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { getPublicationById } from "@/lib/dashboard-data"
+import { ArrowLeft, Save, Trash, Eye, Loader2 } from "lucide-react"
 import type { PublicationType, PublicationStatus } from "@/lib/dashboard-types"
-import { ArrowLeft, Save, Trash, Eye } from "lucide-react"
+import { addToast, Button } from "@heroui/react";
 
-interface EditPublicationPageProps {
+interface EditpostPageProps {
   params: {
     id: string
   }
 }
 
-export default function EditPublicationPage({ params }: EditPublicationPageProps) {
+export default function EditpostPage({ params }: EditpostPageProps) {
   const router = useRouter()
-  const publication = getPublicationById(params.id)
+  const id = params.id
+
+  interface Post {
+    id: string;
+    title: string;
+    excerpt: string;
+    content: string;
+    slug: string;
+    type: string;
+    coverImage?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    status?: string;
+  }
+  const [loading, setLoading] = useState(true)
+  const [post, setPost] = useState<any>([])
+
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get(`/api/posts/${id}`)
+      setPost(response.data)
+      console.log(response.data)
+    } catch (error) {
+      router.push("/dashboard/posts")
+      console.error("Error fetching posts:", error)
+    } finally {
+      setLoading(false)
+      console.log("Post fetched:", post)
+    }
+  }
+  useEffect(() => {
+    fetchPosts()
+  }, [])
 
   const [formData, setFormData] = useState({
     title: "",
     excerpt: "",
     content: "",
     coverImage: "",
-    type: "review" as PublicationType,
+    type: "article" as PublicationType,
     status: "draft" as PublicationStatus,
+    category: "book",
+    rating: 1,
+    author: '',
+    publishDate: '',
+    tags: '',
   })
 
+  const [deletingLoading, setDeletingLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState(false)
 
+  const formatDate = (dateString: string | undefined): string => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   useEffect(() => {
-    if (publication) {
+    if (post) {
       setFormData({
-        title: publication.title,
-        excerpt: publication.excerpt,
-        content: publication.content,
-        coverImage: publication.coverImage,
-        type: publication.type,
-        status: publication.status,
+        title: post.title,
+        excerpt: post.excerpt,
+        content: post.content,
+        coverImage: post.coverImage,
+        type: post.type,
+        status: post.status,
+        category: post.category,
+        rating:  post.rating,
+        author: post.author,
+        publishDate: post.publishDate ? formatDate(post.publishDate) : '',
+        tags: Array.isArray(post.tags) ? post.tags.join(', ') : post.tags,
       })
     } else {
       // Si no se encuentra la publicación, redirigir al dashboard
       router.push("/dashboard")
     }
-  }, [publication, router])
+  }, [post, router])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -64,32 +116,65 @@ export default function EditPublicationPage({ params }: EditPublicationPageProps
     setSubmitError(false)
 
     try {
-      // Simulamos el envío del formulario
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setSubmitSuccess(true)
+      const response = await axios.put(`/api/posts/${id}`, formData)
+      console.log(response.data)
+      if (response.status === 200) {
+        setSubmitSuccess(true)
+        setTimeout(() => {
+          router.push("/dashboard/posts")
+        }, 2000)
+      }
     } catch (error) {
       setSubmitError(true)
+      console.log(error)
     } finally {
       setIsSubmitting(false)
     }
   }
-
-  if (!publication) {
-    return <div>Cargando...</div>
+  console.log(formData)
+  if (loading || !post) {
+    return <div className= 'text-black'>Cargando...</div>
   }
+
+
+    const deletePost = async (id: string) => {
+      setDeletingLoading(true)
+      try {
+        const response = await axios.delete(`/api/posts`, { params: { id } })
+        if (response.status !== 200) {
+          throw new Error("Failed to delete post")
+        }
+        console.log("Post deleted:", response.data)
+        fetchPosts()
+        addToast({
+          title: "Post deleted",
+          description: "The post has been deleted successfully.",
+          color: "success",
+        })
+      } catch (error) {
+        console.error("Error deleting post:", error)
+        addToast({
+          title: "Error deleting post",
+          description: "There was an error deleting the post.",
+          color: "danger",
+        })
+      } finally {
+        setDeletingLoading(false)
+      }
+    }
 
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <Link href="/dashboard/publications" className="text-gray-500 hover:text-gray-700">
+          <Link href="/dashboard/posts" className="text-gray-500 hover:text-gray-700">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <h1 className="text-2xl font-bold text-gray-800">Editar publicación</h1>
         </div>
         <div className="flex gap-2">
           <Link
-            href={`/reviews/${publication.slug}`}
+            href={`/reviews/${post.slug}`}
             className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center gap-2"
             target="_blank"
           >
@@ -97,10 +182,16 @@ export default function EditPublicationPage({ params }: EditPublicationPageProps
             <span>Vista previa</span>
           </Link>
           <button
+            onClick={() => deletePost(post._id)}
+            disabled={deletingLoading}
             className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors flex items-center gap-2"
             type="button"
           >
-            <Trash className="w-4 h-4" />
+            {deletingLoading ? (
+                                     <Loader2 className="w-5 h-5 animate-spin" />
+                                   ) : (
+                                     <Trash className="w-5 h-5" />
+                                   )}
             <span>Eliminar</span>
           </button>
         </div>
@@ -130,10 +221,10 @@ export default function EditPublicationPage({ params }: EditPublicationPageProps
                   type="text"
                   id="title"
                   name="title"
-                  value={formData.title}
+                  value={formData.title || ""}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 />
               </div>
 
@@ -144,11 +235,11 @@ export default function EditPublicationPage({ params }: EditPublicationPageProps
                 <textarea
                   id="excerpt"
                   name="excerpt"
-                  value={formData.excerpt}
+                  value={formData.excerpt || ""}
                   onChange={handleChange}
                   required
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 ></textarea>
               </div>
 
@@ -159,12 +250,27 @@ export default function EditPublicationPage({ params }: EditPublicationPageProps
                 <textarea
                   id="content"
                   name="content"
-                  value={formData.content}
+                  value={formData.content || ""}
                   onChange={handleChange}
                   required
                   rows={15}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 ></textarea>
+              </div>
+              <div>
+                <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-1">
+                  Etíquetas <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="tags"
+                  name="tags"
+                  value={formData.tags}
+                  onChange={handleChange}
+                  required
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  placeholder="Introduce las etiquetas, separadas por comas"
+                />
               </div>
             </div>
 
@@ -177,9 +283,10 @@ export default function EditPublicationPage({ params }: EditPublicationPageProps
                   type="text"
                   id="coverImage"
                   name="coverImage"
-                  value={formData.coverImage}
+                  required
+                  value={formData.coverImage || ""}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 />
                 <div className="mt-2 relative h-40 bg-gray-100 rounded-md overflow-hidden">
                   {formData.coverImage && (
@@ -192,7 +299,25 @@ export default function EditPublicationPage({ params }: EditPublicationPageProps
                   )}
                 </div>
               </div>
-
+              <div>
+                <label htmlFor="rating" className="block text-sm font-medium text-gray-700 mb-1">
+                  Puntuación<span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="rating"
+                  name="rating"
+                  value={formData.rating}
+                  onChange={handleChange}
+                  required
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                >
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
+              </div>
               <div>
                 <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
                   Tipo <span className="text-red-500">*</span>
@@ -203,7 +328,7 @@ export default function EditPublicationPage({ params }: EditPublicationPageProps
                   value={formData.type}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 >
                   <option value="review">Reseña</option>
                   <option value="article">Artículo</option>
@@ -221,37 +346,50 @@ export default function EditPublicationPage({ params }: EditPublicationPageProps
                   value={formData.status}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 >
                   <option value="draft">Borrador</option>
                   <option value="published">Publicado</option>
                   <option value="archived">Archivado</option>
                 </select>
               </div>
-
+              <div>
+                <label htmlFor="publishDate" className="block text-sm font-medium text-gray-700 mb-1">
+                  Fecha de publicación <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="publishDate"
+                  type='date'
+                  name="publishDate"
+                  value={formData.publishDate}
+                  onChange={handleChange}
+                  required
+                  className=" text-black w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                />
+              </div>
               <div>
                 <p className="text-sm text-gray-500 mb-1">Información adicional</p>
                 <div className="bg-gray-50 p-4 rounded-md text-sm">
-                  <p>
-                    <span className="font-medium">Creado:</span>{" "}
-                    {new Date(publication.createdAt).toLocaleDateString("es-ES", {
+                  <p className = 'text-black'>
+                    <span className="text-black font-medium">Creado:</span>{" "}
+                     {new Date(post.createdAt).toLocaleDateString("es-ES", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </p>
-                  <p>
-                    <span className="font-medium">Última actualización:</span>{" "}
-                    {new Date(publication.updatedAt).toLocaleDateString("es-ES", {
+                  <p className='text-black'>
+                    <span className=" text-black font-medium">Última actualización:</span>{" "}
+                    {new Date(post.updatedAt).toLocaleDateString("es-ES", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </p>
-                  {publication.publishedAt && (
-                    <p>
-                      <span className="font-medium">Publicado:</span>{" "}
-                      {new Date(publication.publishedAt).toLocaleDateString("es-ES", {
+                  {post.publishedAt && (
+                    <p className = 'text-black'>
+                      <span className=" text-black font-medium">Publicado:</span>{" "}
+                      {new Date(post.publishedAt).toLocaleDateString("es-ES", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
@@ -268,9 +406,8 @@ export default function EditPublicationPage({ params }: EditPublicationPageProps
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`px-6 py-3 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition-colors flex items-center gap-2 ${
-              isSubmitting ? "opacity-70 cursor-not-allowed" : ""
-            }`}
+            className={`px-6 py-3 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition-colors flex items-center gap-2 ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+              }`}
           >
             {isSubmitting ? (
               <>

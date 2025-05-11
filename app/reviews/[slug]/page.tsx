@@ -1,44 +1,62 @@
-import Image from "next/image"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import { getReviewBySlug, getAllReviews } from "@/lib/reviews-data"
-import { Star } from "lucide-react"
-import type { Metadata } from "next"
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getReviewBySlug, getAllReviews } from "@/lib/reviews-data";
+import { Star } from "lucide-react";
+import type { Metadata } from "next";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface ReviewPageProps {
   params: {
-    slug: string
-  }
+    slug: string;
+  };
 }
 
-export async function generateMetadata({ params }: ReviewPageProps): Promise<Metadata> {
-  const review = getReviewBySlug(params.slug)
+export default  function ReviewPage({ params }: ReviewPageProps) {
+  const slugp = params.slug;
+
+  interface Post {
+    _id: string;
+    title: string;
+    excerpt: string;
+    author: string;
+    rating: number;
+    content: string;
+    slug: string;
+    type: string;
+    coverImage?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    status?: string;
+    tags: string[];
+    publishDate: string;
+  }
+
+  const [review, setReview] = useState<Post | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchReview = async () => {
+      try {
+        const response = await axios.get(`/api/posts/slug/${slugp}`);
+        setReview(response.data);
+      } catch (err: any) {
+        console.error("Failed to fetch review:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReview();
+  }, [slugp]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   if (!review) {
-    return {
-      title: "Reseña no encontrada",
-    }
-  }
-
-  return {
-    title: `${review.title} | Reseña por Lis Samarah`,
-    description: review.excerpt,
-  }
-}
-
-export async function generateStaticParams() {
-  const reviews = getAllReviews()
-
-  return reviews.map((review) => ({
-    slug: review.slug,
-  }))
-}
-
-export default function ReviewPage({ params }: ReviewPageProps) {
-  const review = getReviewBySlug(params.slug)
-
-  if (!review) {
-    notFound()
+    return <div>Review not found</div>;
   }
 
   return (
@@ -47,25 +65,27 @@ export default function ReviewPage({ params }: ReviewPageProps) {
       <section className="relative w-full py-16 bg-gradient-to-r from-pink-500 to-rose-700">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
           <div className="relative h-[300px] w-[200px] md:h-[400px] md:w-[300px] flex-shrink-0">
-            <Image
-              src={review.coverImage || "/placeholder.svg"}
-              alt={review.title}
-              fill
-              className="object-cover rounded-lg shadow-lg"
-              priority
-            />
+            {review.coverImage && (
+              <Image
+                src={review.coverImage}
+                alt={review.title}
+                fill
+                className="object-cover rounded-lg shadow-lg"
+                priority
+              />
+            )}
           </div>
           <div className="text-white space-y-4">
-            <div className="inline-block bg-white/20 px-3 py-1 rounded-full text-sm font-medium mb-2">
-              {review.category === "book" ? "Reseña de Libro" : "Reseña de Película"}
-            </div>
             <h1 className="text-3xl md:text-5xl font-bold">{review.title}</h1>
             <p className="text-xl">Por {review.author}</p>
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className={`h-5 w-5 ${i < review.rating ? "fill-yellow-400 text-yellow-400" : "fill-none text-white/50"}`}
+                  className={`h-5 w-5 ${i < review.rating
+                      ? "fill-yellow-400 text-yellow-400"
+                      : "fill-none text-white/50"
+                    }`}
                 />
               ))}
             </div>
@@ -80,28 +100,32 @@ export default function ReviewPage({ params }: ReviewPageProps) {
           <div className="max-w-3xl mx-auto prose prose-rose lg:prose-lg">
             <div className="mb-8">
               <div className="flex flex-wrap gap-2 mb-6">
-                {review.tags.map((tag) => (
-                  <span key={tag} className="bg-rose-100 text-rose-800 px-3 py-1 rounded-full text-sm">
-                    {tag}
-                  </span>
-                ))}
+                {review.tags &&
+                  review.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="bg-rose-100 text-rose-800 px-3 py-1 rounded-full text-sm"
+                    >
+                      {tag}
+                    </span>
+                  ))}
               </div>
               <p className="text-gray-500">
                 Publicado el{" "}
-                {new Date(review.publishDate).toLocaleDateString("es-ES", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+                {review.publishDate &&
+                  new Date(review.publishDate).toLocaleDateString("es-ES", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
               </p>
             </div>
 
             <div className="markdown-content">
-              
-              <p className='text-gray-700 mb-4 text-lg font-semibold text-justify word-spacing-1 leading-loose'>
+              <p className="text-gray-700 mb-4 text-lg font-semibold text-justify word-spacing-1 leading-loose">
                 {review.content}
-                </p>
-              </div>
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -109,9 +133,12 @@ export default function ReviewPage({ params }: ReviewPageProps) {
       {/* CTA Section */}
       <section className="py-12 bg-rose-50">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-rose-900 mb-4">¿Te ha gustado esta reseña?</h2>
+          <h2 className="text-2xl font-bold text-rose-900 mb-4">
+            ¿Te ha gustado esta reseña?
+          </h2>
           <p className="max-w-2xl mx-auto mb-8 text-gray-700">
-            Descubre más análisis y críticas de Lis Samarah sobre tus obras favoritas y nuevos descubrimientos.
+            Descubre más análisis y críticas de Lis Samarah sobre tus obras
+            favoritas y nuevos descubrimientos.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
@@ -130,5 +157,5 @@ export default function ReviewPage({ params }: ReviewPageProps) {
         </div>
       </section>
     </div>
-  )
+  );
 }

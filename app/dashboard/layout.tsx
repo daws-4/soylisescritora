@@ -43,7 +43,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </li>
             <li>
               <Link
-                href="/dashboard/publications"
+                href="/dashboard/posts"
                 className="flex items-center px-6 py-3 text-gray-700 hover:bg-pink-50 hover:text-pink-500"
               >
                 <FileText className="w-5 h-5 mr-3" />
@@ -52,7 +52,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </li>
             <li>
               <Link
-                href="/dashboard/new"
+                href="/dashboard/posts/new"
                 className="flex items-center px-6 py-3 text-gray-700 hover:bg-pink-50 hover:text-pink-500"
               >
                 <PlusCircle className="w-5 h-5 mr-3" />
