@@ -33,24 +33,13 @@ export default function AboutPage() {
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-rose-900">Biografía</h2>
               <p className="text-lg text-rose-800">
-                Lis Samarah nació en el corazón de España, donde desde temprana edad mostró una fascinación por las
-                palabras y las historias. Creció rodeada de libros, desarrollando una sensibilidad especial para captar
-                la belleza y la complejidad de la condición humana.
+              Nació en Puerto Cabello, en las costas Venezolanas. Creció como todo niño amante de la lectura: rodeada de libros; junto con una creciente curiosidad y amor por las historias que hicieron de su día a día una travesía más divertida. Fue  encontrando en las letras una salida a diversos desafíos vivenciales durante su educación primaria. Es en la literatura, donde ella encontró paz.
               </p>
               <p className="text-lg text-rose-800">
-                Estudió Literatura en la Universidad de Madrid, donde descubrió su pasión por la crítica literaria y
-                comenzó a forjar su propio estilo como escritora. Sus primeros relatos cortos llamaron la atención por
-                su intensidad emocional y su prosa poética.
+                Su infancia y adolescencia transcurrieron en el estado Táchira, educándose en música, arte, escritura y poesía. A los 14 años tuvo la oportunidad de publicar su primera novela "Sentimientos Sangrientos" en físico.
               </p>
               <p className="text-lg text-rose-800">
-                En 2018, publicó su primera novela, "Sentimientos Sangrientos", que rápidamente captó la atención de
-                lectores y críticos por su exploración profunda de las emociones humanas y su estilo único. La obra se
-                convirtió en un referente dentro de su género y consolidó a Lis como una voz importante en el panorama
-                literario español.
-              </p>
-              <p className="text-lg text-rose-800">
-                Paralelamente a su carrera como escritora, Lis ha desarrollado una labor como crítica literaria y de
-                cine, compartiendo su perspectiva única y su análisis profundo de obras contemporáneas.
+                En palabras de sus lectores, dicha obra "fue una luz en la oscuridad" ayudando a adolescentes, padres y educadores a entender un poco mejor temas como el acoso escolar, la depresión y la ansiedad en los jovenes.
               </p>
             </div>
           </div>
@@ -99,22 +88,15 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 order-2 md:order-1">
-              <h2 className="text-3xl font-bold text-rose-900">Filosofía Literaria</h2>
+              {/* <h2 className="text-3xl font-bold text-rose-900">Filosofía Literaria</h2> */}
               <p className="text-lg text-rose-800">
-                Para Lis Samarah, la literatura es mucho más que entretenimiento; es un vehículo para explorar la
-                complejidad del alma humana y un puente que conecta experiencias y emociones universales.
+                Y es justamente debido a esto, al fuerte deseo de concienciar a quienes la leen respecto a tópicos de salud mental, que decidió estudiar la carrera de sociologia.
               </p>
               <p className="text-lg text-rose-800">
-                "Escribir es un acto de valentía", afirma Lis. "Requiere la disposición de sumergirse en las
-                profundidades de uno mismo y extraer verdades que a veces pueden ser incómodas pero necesarias."
+                Sus siguientes obras han sido cuatro libros más en su perfil de Wattpad (@LisSamarah), y espera pronto materializarlos también para llegar a más personas con su mensaje de igualdad, inclusión y concienciación.
               </p>
               <p className="text-lg text-rose-800">
-                En sus reseñas, Lis busca ir más allá de la superficie, analizando no solo los aspectos técnicos de las
-                obras sino también su impacto emocional y su relevancia en el contexto cultural actual.
-              </p>
-              <p className="text-lg text-rose-800">
-                Su enfoque crítico se caracteriza por la honestidad, la empatía y un profundo respeto por el trabajo
-                creativo, valores que también guían su propia escritura.
+              "Pues, querido lector ideal, quiero que siempre recuerdes esto:"no estás solo".
               </p>
             </div>
             <div className="relative h-[500px] w-full order-1 md:order-2">

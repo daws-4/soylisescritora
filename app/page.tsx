@@ -165,6 +165,8 @@ export default function Home() {
       </section>
 
       {/* Reviews Section */}
+
+      {/* hacer carrusel de las reseñas, contando con las últimas 6 reseñas  */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-rose-900">Reseñas Recientes</h2>
