@@ -26,7 +26,7 @@ export default function DashboardPage() {
     const fetchPosts = async () => {
       try {
         const response = await axios.get('/api/posts')
-        setPosts(response.data)
+        setPosts(response.data.reverse())
         console.log(response.data)
       } catch (error) {
         console.error("Error fetching posts:", error)
@@ -183,8 +183,8 @@ export default function DashboardPage() {
       </div>
 
       {/* Recent Publications */}
-      <div className="bg-white p-6 rounded-lg shadow-sm">
-        <div className="flex justify-between items-center mb-4">
+      <div className="bg-white p-6 rounded-lg shadow-sm max-w-screen-lg mx-auto">
+        <div className="flex  justify-between items-center mb-4">
           <h2 className="text-lg font-bold text-gray-800">Publicaciones recientes</h2>
           <Link href="/dashboard/publications" className="text-sm text-pink-500 hover:underline">
             Ver todas
@@ -202,7 +202,7 @@ export default function DashboardPage() {
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-base font-medium text-gray-800 truncate">{publication.title}</h3>
+                <h3 className="text-base font-medium text-gray-800">{publication.title}</h3>
                 <p className="text-sm text-gray-500">
                   {publication.type === "review" ? "Reseña" : publication.type === "article" ? "Artículo" : "Noticia"}
                 </p>

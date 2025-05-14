@@ -221,8 +221,8 @@ export default function PublicationsPage() {
 
       {/* Publications List */}
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
+        <div className="overflow-x-auto max-w-screen-lg">
+          <table className="min-w-full divide-y divide-gray-200 g">
             <thead className="bg-gray-50">
               <tr>
                 <th
@@ -260,8 +260,8 @@ export default function PublicationsPage() {
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredPublications.map((publication: any) => (
                 <tr key={publication._id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
+                  <td className="px-6 py-4   max-w-screen-md">
+                    <div className="flex items-center  max-w-screen-md">
                       <div className="flex-shrink-0 h-10 w-10 relative">
                         <Image
                           src={publication.coverImage || "/placeholder.svg"}
@@ -271,8 +271,8 @@ export default function PublicationsPage() {
                         />
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">{publication.title}</div>
-                        <div className="text-sm text-gray-500 truncate max-w-xs">{publication.excerpt}</div>
+                        <div className="text-sm font-medium text-gray-900 ">{publication.title}</div>
+                        <div className="text-sm text-gray-500 truncate max-w-xl">{publication.excerpt}</div>
                       </div>
                     </div>
                   </td>
